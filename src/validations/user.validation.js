@@ -14,22 +14,36 @@ let userRenters = Joi.object().keys({
 
 const createUser = {
     body: Joi.object().keys({
-        firstName: Joi.string().required(),
-        middleName: Joi.string().required(),
-        lastName: Joi.string().required(),
-        dateOfBirth: Joi.date().iso().required(),
-        gender: Joi.string().valid('Male', 'Female').required(),
-        countryCode: Joi.string().required(),
-        state: Joi.string().required(),
-        district: Joi.string().required(),
-        city: Joi.string().required(),
-        phone: Joi.number().required(),
-        alternatePhone: Joi.number(),
+        // date_created: Joi.date().iso(),
+        // date_modified: Joi.date().iso().required(),
         email: Joi.string().required().email(),
+        finger_print: Joi.string(),
+        first_name: Joi.string().required(),
+        middle_name: Joi.string(),
+        last_name: Joi.string().required(),
+        last_otp: Joi.number(),
+        date_of_birth: Joi.string().pattern(/^\d{2}-\d{2}-\d{4}$/)
+            .message('Date of birth must be in dd-mm-yyyy format')
+            .custom((value, helpers) => {
+                const dateParts = value.split('-');
+                const day = parseInt(dateParts[0]);
+                const month = parseInt(dateParts[1]) - 1; // Months are zero-based in JavaScript Date object
+                const year = parseInt(dateParts[2])
+                const date = new Date(year, month, day);
+                if (isNaN(date.getTime())) {
+                    return helpers.error('any.invalid');
+                }
+                return value;
+            })
+            .message('Invalid date of birth').required(),
+        gender: Joi.string().valid('Male', 'Female').required(),
+        phone: Joi.number().required(),
+        alternate_phone: Joi.number(),
+        last_signed_in: Joi.string(),
+        login_type: Joi.string().valid('INFINITY', 'ORIGIN').required(),
+        otp_expiry: Joi.date().iso(),
+        user_state: Joi.number().valid(0, 1, 2, 3, 4).required(),
         password: Joi.string().required().custom(password),
-        role: Joi.string().required().valid('renter', 'admin'),
-        userHouses: Joi.array().items(userHouses),
-        userRenters: Joi.array().items(userRenters)
     }),
 };
 

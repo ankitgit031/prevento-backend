@@ -12,7 +12,6 @@ const createUser = async (userBody) => {
         throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
     }
     return User.create(userBody);
-    // console.log("Inside create user apis");
 };
 
 /**
