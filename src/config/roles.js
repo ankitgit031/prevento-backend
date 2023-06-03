@@ -4,14 +4,13 @@
 //   };
 const allRoles = {
   INFINITY: ['getUsers'],
-  ORIGIN: ['getUsers', 'manageUsers', 'addCustomer'],
+  ORIGIN: ['getUsers', 'manageUsers', 'addCustomer', 'addSite', 'addSiteAccess', 'addCustomerLicense'],
 };
-  
-  const roles = Object.keys(allRoles);
-  const roleRights = new Map(Object.entries(allRoles));
-  
-  module.exports = {
-    roles,
-    roleRights,
-  };
-  
+
+const roles = Object.keys(allRoles);
+const roleRights = new Map(Object.entries(allRoles));
+
+module.exports = {
+  roles,
+  roleRights,
+};
