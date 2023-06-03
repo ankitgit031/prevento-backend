@@ -4,3 +4,4 @@ module.exports.homeValidation = require('./home.validation');
 module.exports.siteValidation = require('./site.validation');
 module.exports.siteAccessValidation = require('./siteaccess.validation');
 module.exports.customerLicenseValidation = require('./customerlicense.validation');
+module.exports.roleValidation = require('./role.validation');

@@ -6,6 +6,7 @@ const customerRoute = require('./customer.route');
 const siteRoute = require('./site.route');
 const siteAccessRoute = require('./siteaccess.route');
 const customerLicenseRoute = require('./customerlicense.route');
+const roleRoute = require('./role.route');
 
 
 const router = express.Router();
@@ -38,6 +39,10 @@ const defaultRoutes = [
     {
         path: '/customerlicense',
         route: customerLicenseRoute,
+    },
+    {
+        path: '/role',
+        route: roleRoute,
     },
 ];
 

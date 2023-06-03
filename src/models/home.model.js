@@ -77,11 +77,11 @@ const homeSchema = new Schema(
         },
         // renterDetails: [
         //     {
-        //         userRenterId: {
-        //             type: mongoose.Schema.Types.ObjectId,
-        //             ref: 'Users',
-        //             required: false
-        //         },
+                // userRenterId: {
+                //     type: mongoose.Schema.Types.ObjectId,
+                //     ref: 'Users',
+                //     required: false
+                // },
         //         startDate: {
         //             type: Date,
         //             required: false

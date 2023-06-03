@@ -6,3 +6,4 @@ module.exports.customerService = require('./customer.service');
 module.exports.siteService = require('./site.service');
 module.exports.siteAccessService = require('./siteaccess.service');
 module.exports.customerLicenseService = require('./customerlicense.service');
+module.exports.roleService = require('./role.service');

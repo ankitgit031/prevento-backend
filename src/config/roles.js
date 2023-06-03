@@ -3,8 +3,8 @@
 //     admin: ['getUsers', 'manageUsers'],
 //   };
 const allRoles = {
-  INFINITY: ['getUsers'],
-  ORIGIN: ['getUsers', 'manageUsers', 'addCustomer', 'addSite', 'addSiteAccess', 'addCustomerLicense'],
+  INFINITY: ['getUsers', 'addUser', 'addRole'],
+  ORIGIN: ['getUsers', 'manageUsers', 'addCustomer', 'addSite', 'addSiteAccess', 'addCustomerLicense', 'addUser', 'addRole'],
 };
 
 const roles = Object.keys(allRoles);
