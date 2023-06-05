@@ -10,5 +10,7 @@ const router = express.Router();
 router
     .route('/')
     .post(auth('addRole'), validate(roleValidation.createRole), roleController.createRole)
+    .get(auth('getRole'), roleController.getRole)
+
 
 module.exports = router;

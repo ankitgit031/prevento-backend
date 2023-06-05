@@ -11,6 +11,14 @@ const createRole = catchAsync(async (req, res) => {
     res.status(httpStatus.CREATED).send(role);
 });
 
+const getRole = catchAsync(async (req, res) => {
+    const filter = pick(req.query, ['name', 'role']);
+    const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const result = await roleService.queryRole(filter, options);
+    res.send(result);
+});
+
 module.exports = {
     createRole,
+    getRole,
 };

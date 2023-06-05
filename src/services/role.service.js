@@ -11,6 +11,11 @@ const createRole = async (roleBody) => {
     return Role.create(roleBody);
 };
 
+const queryRole = async (filter, options) => {
+    const roles = await Role.paginate(filter, options);
+    return roles;
+};
+
 /**
  * Query for homes
  * @param {Object} filter - Mongo filter
@@ -63,4 +68,5 @@ const deleteHomeById = async (homeId) => {
 
 module.exports = {
     createRole,
+    queryRole,
 };
