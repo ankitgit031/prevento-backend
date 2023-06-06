@@ -22,7 +22,7 @@ mongoose.connect(process.env.DB_CONNECTION, {
 const exitHandler = () => {
   if (server) {
     server.close(() => {
-      logger.info('Server closed');
+      logger.error('Server closed');
       process.exit(1);
     });
   } else {

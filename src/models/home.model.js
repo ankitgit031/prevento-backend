@@ -75,23 +75,23 @@ const homeSchema = new Schema(
             type: Date,
             required: false
         },
-        renterDetails: [
-            {
-                userRenterId: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'Users',
-                    required: false
-                },
-                startDate: {
-                    type: Date,
-                    required: false
-                },
-                endDate: {
-                    type: Date,
-                    required: false
-                },
-            }
-        ],
+        // renterDetails: [
+        //     {
+                // userRenterId: {
+                //     type: mongoose.Schema.Types.ObjectId,
+                //     ref: 'Users',
+                //     required: false
+                // },
+        //         startDate: {
+        //             type: Date,
+        //             required: false
+        //         },
+        //         endDate: {
+        //             type: Date,
+        //             required: false
+        //         },
+        //     }
+        // ],
     },
     { timestamps: true }
 );

@@ -5,6 +5,11 @@ const catchAsync = require('../utils/catchAsync');
 const { userService } = require('../services');
 
 const createUser = catchAsync(async (req, res) => {
+    req.body.date_created = new Date();
+    req.body.date_modified = new Date();
+    // if (req.body.login_type === 'INFINITY') {
+
+    // }
     const user = await userService.createUser(req.body);
     res.status(httpStatus.CREATED).send(user);
 });
@@ -19,7 +24,7 @@ const getUsers = catchAsync(async (req, res) => {
 const deleteUser = catchAsync(async (req, res) => {
     await userService.deleteUserById(req.params.userId);
     res.status(httpStatus.NO_CONTENT).send();
-    
+
 });
 
 

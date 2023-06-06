@@ -8,58 +8,16 @@ const validator = require('validator');
 
 const userSchema = new Schema(
     {
-        firstName: {
-            type: String,
-            required: true,
-            trim: true,
-            index: true
+        user_id: {
+            type: Number, default: 1
         },
-        middleName: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        lastName: {
-            type: String,
-            required: true,
-            trim: true,
-            index: true
-        },
-        dateOfBirth: {
+        date_created: {
             type: Date,
             required: false
         },
-        gender: {
-            type: String,
-            enum: ['Male', 'Female'],
+        date_modified: {
+            type: Date,
             required: true
-        },
-        countryCode: {
-            type: String,
-            required: true
-        },
-        state: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        district: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        city: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        phone: {
-            type: Number,
-            required: true
-        },
-        alternatePhone: {
-            type: Number,
-            required: false
         },
         email: {
             type: String,
@@ -73,6 +31,66 @@ const userSchema = new Schema(
                 }
             },
         },
+        finger_print: {
+            type: String,
+            required: false,
+        },
+        first_name: {
+            type: String,
+            required: true,
+            trim: true,
+            index: true
+        },
+        middle_name: {
+            type: String,
+            required: false,
+            trim: true
+        },
+        last_name: {
+            type: String,
+            required: true,
+            trim: true,
+            index: true
+        },
+        last_otp: {
+            type: Number,
+            required: false,
+        },
+        date_of_birth: {
+            type: String,
+            required: true
+        },
+        gender: {
+            type: String,
+            enum: ['Male', 'Female'],
+            required: true
+        },
+        phone: {
+            type: Number,
+            required: true
+        },
+        alternate_phone: {
+            type: Number,
+            required: false
+        },
+        last_signed_in: {
+            type: String,
+            required: false
+        },
+        login_type: {
+            type: String,
+            enum: ['INFINITY', 'ORIGIN'],
+            required: true
+        },
+        otp_expiry: {
+            type: Date,
+            required: false,
+        },
+        user_state: {
+            type: Number,
+            enum: [0, 1, 2, 3, 4],
+            required: true
+        },
         password: {
             type: String,
             required: true,
@@ -85,7 +103,7 @@ const userSchema = new Schema(
             },
             private: true, // used by the toJSON plugin
         },
-        // passwordHash: {
+        // password_hash: {
         //     type: String,
         //     required: true,
         //     trim: true
@@ -93,25 +111,25 @@ const userSchema = new Schema(
         // avatar: {
         //     type: String
         // },
-        role: { type: String, required: true },
-        userHouses: [
-            {
-                userHourseId: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'House',
-                    required: false
-                }
-            }
-        ],
-        userRenters: [
-            {
-                userRenterId: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'Renter',
-                    required: false
-                }
-            }
-        ],
+        // role: { type: String, required: true },
+        // userHouses: [
+        //     {
+        //         userHourseId: {
+        //             type: mongoose.Schema.Types.ObjectId,
+        //             ref: 'House',
+        //             required: false
+        //         }
+        //     }
+        // ],
+        // userRenters: [
+        //     {
+        //         userRenterId: {
+        //             type: mongoose.Schema.Types.ObjectId,
+        //             ref: 'Renter',
+        //             required: false
+        //         }
+        //     }
+        // ],
 
         // userHouses: {
         //     type: mongoose.Types.ObjectId,
@@ -175,13 +193,16 @@ userSchema.methods.isPasswordMatch = async function (password) {
 
 userSchema.pre('save', async function (next) {
     const user = this;
+    if (user.isNew) {
+        const lastUser = await User.findOne({}, 'user_id').sort({ user_id: -1 });
+        user.user_id = lastUser ? lastUser.user_id + 1 : 1;
+    }
     if (user.isModified('password')) {
         user.password = await bcrypt.hash(user.password, 8);
     }
     next();
 });
 
-
-const User = mongoose.model('users', userSchema);
-
+const User = mongoose.model('user', userSchema);
+User.collection.createIndex({ user_id: 1 }, { unique: true });
 module.exports = User;

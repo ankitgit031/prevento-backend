@@ -86,6 +86,22 @@ const generateAuthTokens = async (user) => {
 };
 
 /**
+ * Generate License
+ * @returns {Promise<Object>}
+ */
+const generateLicense = async (customer_id, total_people_count, begin_date_time, expiry_date_time, secret = process.env.JWT_LICENSESECRET) => {
+    const payload = {
+        customer_id,
+        total_people_count,
+        begin_date_time,
+        expiry_date_time,
+        iat: moment().unix(),
+        exp: Math.floor(new Date(expiry_date_time).getTime() / 1000),
+    };
+    return jwt.sign(payload, secret);
+};
+
+/**
  * Generate reset password token
  * @param {string} email
  * @returns {Promise<string>}
@@ -118,6 +134,7 @@ module.exports = {
     // saveToken,
     verifyToken,
     generateAuthTokens,
+    generateLicense,
     // generateResetPasswordToken,
     // generateVerifyEmailToken,
 };

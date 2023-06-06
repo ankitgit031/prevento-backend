@@ -3,10 +3,13 @@ const validate = require('../../middlewares/validate');
 const authValidation = require('../../validations/auth.validation');
 const authController = require('../../controllers/auth.controller');
 // const auth = require('../../middlewares/auth');
+const userController = require('../../controllers/user.controller');
+const userValidation = require('../../validations/user.validation');
 
 const router = express.Router();
 
 // router.post('/register', validate(authValidation.register), authController.register);
+router.post('/register', validate(userValidation.createUser), userController.createUser);
 router.post('/login', validate(authValidation.login), authController.login);
 // router.post('/logout', validate(authValidation.logout), authController.logout);
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
