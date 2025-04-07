@@ -204,5 +204,5 @@ userSchema.pre('save', async function (next) {
 });
 
 const User = mongoose.model('user', userSchema);
-User.collection.createIndex({ user_id: 1 }, { unique: true });
+// User.collection.createIndex({ user_id: 1 }, { unique: true });
 module.exports = User;
