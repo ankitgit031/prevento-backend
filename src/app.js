@@ -31,6 +31,11 @@ app.options('*', cors());
 app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 
+// Your routes and logic here, for example:
+app.get('/', (req, res) => {
+  res.send('Hello, From Prevento!');
+});
+
 // v1 api routes
 app.use('/v1', routes);
 
